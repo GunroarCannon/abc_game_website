@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -196,16 +196,6 @@
     </div>
 
     <div class="features">
-        <div class="feature-card" onclick="launchActivity('music')">
-            <div class="feature-icon">🎵</div>
-            <h3>Music Time</h3>
-            <p>Sing along with happy songs!</p>
-        </div>
-        <div class="feature-card" onclick="launchActivity('stories')">
-            <div class="feature-icon">📖</div>
-            <h3>Storyland</h3>
-            <p>Interactive stories with choices</p>
-        </div>
         <div class="feature-card" onclick="showABCGame()">
             <div class="feature-icon">🎮</div>
             <h3>ABC Game</h3>
@@ -268,20 +258,47 @@
             // Using emoji as image placeholder
             document.getElementById('letterImage').src = `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50%' y='50%' font-size='80' text-anchor='middle' dominant-baseline='middle'>${currentLetter.emoji}</text></svg>`;
             document.getElementById('gameFeedback').textContent = `${currentLetter.letter} is for ${currentLetter.object}`;
-        }
+        }// Function to find a feminine voice
+function getFeminineVoice() {
+    const voices = speechSynthesis.getVoices();
+    // Filter for a voice that is commonly feminine
+    return voices.find(voice => voice.lang.startsWith("en") && voice.name.includes("Female")) || voices[0];
+}
+ // Preload the audio when the page loads
+const giggleAudio = new Audio();
+giggleAudio.preload = 'auto';
+giggleAudio.src = "https://www.myinstants.com/media/sounds/baby-giggle.mp3";
+function playLetterSound() {
+    // Play the giggle sound first
+    const audio = new Audio("https://www.myinstants.com/media/sounds/baby-giggle.mp3");
+    audio.play()
+        .then(() => {
+            // Delay speech synthesis to allow giggle to finish
+            setTimeout(() => {
+                const currentLetter = abcGameData[currentLetterIndex];
+                const utterance = new SpeechSynthesisUtterance(currentLetter.sound);
 
-        function playLetterSound() {
-            const currentLetter = abcGameData[currentLetterIndex];
-            const utterance = new SpeechSynthesisUtterance(currentLetter.sound);
-            utterance.rate = 0.8;
-            utterance.pitch = 1.2;
-            speechSynthesis.speak(utterance);
-            
-            // Show happy feedback
-            const feedback = document.getElementById('gameFeedback');
-            feedback.textContent = `Great! ${currentLetter.letter} sounds like ${currentLetter.sound}`;
-            feedback.style.color = 'var(--happy)';
-        }
+                // Voice settings
+                utterance.rate = 0.9;
+                utterance.pitch = 1.4;
+
+                // Try to find a better voice
+                const voices = window.speechSynthesis.getVoices();
+                const childlikeVoice = voices.find(v => 
+                    v.name.includes("Female") || 
+                    v.name.includes("Child")
+                );
+                if (childlikeVoice) utterance.voice = childlikeVoice;
+
+                // Speak and show feedback
+                speechSynthesis.speak(utterance);
+                document.getElementById("gameFeedback").textContent = 
+                    `Yay! ${currentLetter.letter} is for ${currentLetter.object}`;
+            }, 1000); // Delay for 1 second (adjust if needed)
+        })
+        .catch(e => console.log("Error playing sound:", e));
+}
+
 
         function nextLetter() {
             currentLetterIndex = (currentLetterIndex + 1) % abcGameData.length;
