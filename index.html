@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fun & Feelings | English for Kids</title>
+    <style>
+        /* Color Palette */
+        :root {
+            --primary: #6EC4DB; /* Soft blue */
+            --secondary: #F9A1BC; /* Warm pink */
+            --accent: #FFD166; /* Sunny yellow */
+            --background: #F7F9FC; /* Light gray-blue */
+            --text: #33334D; /* Dark blue-gray */
+            --happy: #FF9AA2; /* Emotion colors */
+            --calm: #A2D7D8;
+            --excited: #FFB347;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Marker Felt', cursive;
+            background-color: var(--background);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .mascot {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto;
+            background-color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 4rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        button {
+            background-color: var(--accent);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            padding: 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Game Overlay Styles */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255,255,255,0.95);
+            z-index: 100;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .game-container {
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .letter-display {
+            font-size: 10rem;
+            color: var(--primary);
+            margin: 1rem 0;
+            text-shadow: 4px 4px 0 var(--accent);
+        }
+
+        .object-image {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            margin: 1rem auto;
+            display: block;
+        }
+
+        .game-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .feedback {
+            font-size: 2rem;
+            height: 3rem;
+            margin: 1rem 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .features {
+                grid-template-columns: 1fr;
+            }
+            .letter-display {
+                font-size: 8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Fun & Feelings</div>
+    </header>
+
+    <div class="hero">
+        <div class="mascot">🦊</div>
+        <h1>Let's Learn English with Joy!</h1>
+        <p>An interactive platform for kids ages 2-6</p>
+        
+        <div class="cta-buttons">
+            <button id="startLearning">Start Learning</button>
+            <button id="parentsButton">For Parents</button>
+        </div>
+    </div>
+
+    <div class="features">
+        <div class="feature-card" onclick="launchActivity('music')">
+            <div class="feature-icon">🎵</div>
+            <h3>Music Time</h3>
+            <p>Sing along with happy songs!</p>
+        </div>
+        <div class="feature-card" onclick="launchActivity('stories')">
+            <div class="feature-icon">📖</div>
+            <h3>Storyland</h3>
+            <p>Interactive stories with choices</p>
+        </div>
+        <div class="feature-card" onclick="showABCGame()">
+            <div class="feature-icon">🎮</div>
+            <h3>ABC Game</h3>
+            <p>Learn letters with fun!</p>
+        </div>
+        <div class="feature-card" onclick="launchActivity('feelings')">
+            <div class="feature-icon">😊</div>
+            <h3>My Feelings</h3>
+            <p>How do you feel today?</p>
+        </div>
+    </div>
+
+    <!-- ABC Game Overlay -->
+    <div id="abcGame" class="overlay">
+        <div class="game-container">
+            <h2>ABC Learning Game</h2>
+            <div class="letter-display" id="currentLetter">A</div>
+            <img class="object-image" id="letterImage" src="" alt="Letter object">
+            <div class="feedback" id="gameFeedback">🐾 Let's learn!</div>
+            <div class="game-buttons">
+                <button onclick="playLetterSound()">🔊 Hear Sound</button>
+                <button onclick="nextLetter()">➡ Next Letter</button>
+                <button onclick="hideABCGame()">✖ Close</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2023 Fun & Feelings | English Learning for Kids</p>
+    </footer>
+
+    <script>
+        // ABC Game Data
+        const abcGameData = [
+            { letter: "A", object: "Apple", sound: "A is for Apple", emoji: "🍎" },
+            { letter: "B", object: "Ball", sound: "B is for Ball", emoji: "⚽" },
+            { letter: "C", object: "Cat", sound: "C is for Cat", emoji: "🐱" },
+            { letter: "D", object: "Dog", sound: "D is for Dog", emoji: "🐶" },
+            { letter: "E", object: "Elephant", sound: "E is for Elephant", emoji: "🐘" }
+        ];
+
+        let currentLetterIndex = 0;
+
+        // ABC Game Functions
+        function showABCGame() {
+            document.getElementById('abcGame').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            updateLetterDisplay();
+        }
+
+        function hideABCGame() {
+            document.getElementById('abcGame').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function updateLetterDisplay() {
+            const currentLetter = abcGameData[currentLetterIndex];
+            document.getElementById('currentLetter').textContent = currentLetter.letter;
+            document.getElementById('letterImage').alt = currentLetter.object;
+            // Using emoji as image placeholder
+            document.getElementById('letterImage').src = `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50%' y='50%' font-size='80' text-anchor='middle' dominant-baseline='middle'>${currentLetter.emoji}</text></svg>`;
+            document.getElementById('gameFeedback').textContent = `${currentLetter.letter} is for ${currentLetter.object}`;
+        }
+
+        function playLetterSound() {
+            const currentLetter = abcGameData[currentLetterIndex];
+            const utterance = new SpeechSynthesisUtterance(currentLetter.sound);
+            utterance.rate = 0.8;
+            utterance.pitch = 1.2;
+            speechSynthesis.speak(utterance);
+            
+            // Show happy feedback
+            const feedback = document.getElementById('gameFeedback');
+            feedback.textContent = `Great! ${currentLetter.letter} sounds like ${currentLetter.sound}`;
+            feedback.style.color = 'var(--happy)';
+        }
+
+        function nextLetter() {
+            currentLetterIndex = (currentLetterIndex + 1) % abcGameData.length;
+            updateLetterDisplay();
+            
+            // Reset feedback
+            document.getElementById('gameFeedback').style.color = 'inherit';
+        }
+
+        // Other functionality
+        function launchActivity(type) {
+            alert(`Launching ${type} activity! (This would open the ${type} module in a real app)`);
+        }
+
+        // Button event listeners
+        document.getElementById('startLearning').addEventListener('click', function() {
+            showABCGame();
+        });
+
+        document.getElementById('parentsButton').addEventListener('click', function() {
+            alert('Parent/teacher resources would appear here');
+        });
+
+        // Animate mascot on hover
+        const mascot = document.querySelector('.mascot');
+        mascot.addEventListener('mouseover', function() {
+            this.style.animation = 'bounce 0.5s infinite';
+        });
+        mascot.addEventListener('mouseout', function() {
+            this.style.animation = 'bounce 2s infinite';
+        });
+    </script>
+</body>
+</html>
