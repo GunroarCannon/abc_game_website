@@ -287,10 +287,10 @@
             <h3>ABC Game</h3>
             <p>Learn letters with fun!</p>
         </div>
-        <div class="feature-card" onclick="launchActivity('feelings')">
-            <div class="feature-icon">😊</div>
+        <div class="feature-card" onclick="showFeelingsActivity()">
+            <div class="feature-icon" id='ficon'>😊</div>
             <h3>My Feelings</h3>
-            <p>How do you feel today?</p>
+            <p id='finfo'>How do you feel today?</p>
         </div>
     </div>
 
@@ -308,6 +308,35 @@
             </div>
         </div>
     </div>
+<!-- Feelings Activity Overlay -->
+<div id="feelingsActivity" class="overlay">
+    <div class="game-container">
+        <h2>How Are You Feeling?</h2>
+        <div id="feelingsOptions" class="features">
+            <div class="feature-card" onclick="handleFeelingSelection('happy')">
+                <div class="feature-icon">😊</div>
+                <h3>Happy</h3>
+                <p>I'm feeling great!</p>
+            </div>
+            <div class="feature-card" onclick="handleFeelingSelection('sad')">
+                <div class="feature-icon">😢</div>
+                <h3>Sad</h3>
+                <p>I feel a little down.</p>
+            </div>
+            <div class="feature-card" onclick="handleFeelingSelection('excited')">
+                <div class="feature-icon">🤩</div>
+                <h3>Excited</h3>
+                <p>I'm so thrilled!</p>
+            </div>
+            <div class="feature-card" onclick="handleFeelingSelection('calm')">
+                <div class="feature-icon">😌</div>
+                <h3>Calm</h3>
+                <p>I'm feeling peaceful.</p>
+            </div>
+        </div>
+        <button onclick="hideFeelingsActivity()">✖ Close</button>
+    </div>
+</div>
 
     <footer>
         <p>© 2023 Fun & Feelings | English Learning for Kids</p>
@@ -346,6 +375,33 @@
 
         let currentLetterIndex = 0;
 
+function showFeelingsActivity() {
+    document.getElementById('feelingsActivity').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+
+function hideFeelingsActivity() {
+    document.getElementById('feelingsActivity').style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+function handleFeelingSelection(feeling) {
+    const feedbackMessages = {
+        happy: "Yay! Keep smiling 😊",
+        sad: "It's okay to feel sad sometimes. Here's a hug 🤗",
+        excited: "Woohoo! Stay pumped 🤩",
+        calm: "Ahh, enjoy the peace 😌"
+    };
+    const info = document.getElementById('finfo');
+    info.textContent = feedbackMessages[feeling].slice(0,-2);
+    const t = feedbackMessages[feeling];
+    const icon = document.getElementById('ficon');
+    icon.textContent = t.slice(t.lastIndexOf(" ") + 1);
+    
+    alert(feedbackMessages[feeling]);
+    hideFeelingsActivity();
+}
+
         // ABC Game Functions
         function showABCGame() {
             document.getElementById('abcGame').style.display = 'flex';
@@ -376,7 +432,7 @@ function playLetterSound() {
             setTimeout(() => {
                 const utterance = new SpeechSynthesisUtterance(currentLetter.sound);
                 utterance.rate = 0.9;
-                utterance.pitch = 1.4;
+                utterance.pitch = 1.2;
                 utterance.volume = 0.8; // Set volume to 80%
 
                 const voices = window.speechSynthesis.getVoices();
@@ -389,13 +445,13 @@ function playLetterSound() {
                 speechSynthesis.speak(utterance);
                 document.getElementById("gameFeedback").textContent =
                     `Yay! ${currentLetter.letter} is for ${currentLetter.object}`;
-            }, 20); // Delay to allow the audio to finish
+            }, 10); // Delay to allow the audio to finish
         })
         .catch((e) => {
             console.log("Error playing sound:", e);
                 const utterance = new SpeechSynthesisUtterance(currentLetter.sound);
                 utterance.rate = 0.9;
-                utterance.pitch = 1.4;
+                utterance.pitch = 1.2;
                 utterance.volume = 0.8; // Set volume to 80%
 
                 const voices = window.speechSynthesis.getVoices();
@@ -411,12 +467,13 @@ function playLetterSound() {
         })
 }
 
+        let nos = 1;
         function nextLetter() { 
-            if (Math.random()>.67) {
+            if (nos==1 || Math.random()>.67) {
                 const audio = new Audio("https://www.myinstants.com/media/sounds/kids-cheering-sound-effect.mp3");
                 audio.volume = 0.3; // Reduced volume to 30%
-            
-                audio.play()
+                audio.play();
+                nos = 2;
             }
             currentLetterIndex = (currentLetterIndex + 1) % abcGameData.length;
             updateLetterDisplay();
@@ -455,3 +512,4 @@ function playLetterSound() {
     </script>
 </body>
 </html>
+
