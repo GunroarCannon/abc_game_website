@@ -1,24 +1,50 @@
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fun & Feelings | English for Kids</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Modak&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+
     <style>
-        /* Color Palette */
+        /* Color Palette - Primary Colors */
         :root {
-            --primary: #6EC4DB; /* Soft blue */
-            --secondary: #F9A1BC; /* Warm pink */
-            --accent: #FFD166; /* Sunny yellow */
-            --background: #F7F9FC; /* Light gray-blue */
-            --text: #33334D; /* Dark blue-gray */
-            --happy: #FF9AA2; /* Emotion colors */
-            --calm: #A2D7D8;
-            --excited: #FFB347;
+            --primary: #4285F4; /* Blue */
+            --secondary: #EA4335; /* Red */
+            --accent: #FBBC05; /* Yellow */
+            --background: #FFFFFF; /* White */
+            --text: #202124; /* Dark gray */
+            --happy: #34A853; /* Green */
+            --calm: #4285F4; /* Blue */
+            --excited: #EA4335; /* Red */
+        }
+
+        /* Animated Polka Dot Background */
+        .polka-dots {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle, var(--accent) 20%, transparent 20%) 0 0,
+                        radial-gradient(circle, var(--secondary) 20%, transparent 20%) 50px 50px,
+                        radial-gradient(circle, var(--accent) 20%, transparent 20%) 100px 100px,radial-gradient(circle, var(--primary) 20%, transparent 2000%) 0 0;
+            background-size: 150px 150px;
+            animation: moveDots 20s linear infinite;
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        @keyframes moveDots {
+            0% {
+                background-position: 0 0, 50px 50px, 100px 100px;
+            }
+            100% {
+                background-position: 150px 150px, 200px 200px, 250px 250px;
+            }
         }
 
         body {
-            font-family: 'Comic Sans MS', 'Marker Felt', cursive;
+            font-family: 'Bubblegum Sans', cursive;
             background-color: var(--background);
             color: var(--text);
             margin: 0;
@@ -26,6 +52,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            position: relative;
         }
 
         header {
@@ -33,11 +60,13 @@
             padding: 1rem;
             text-align: center;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            position: relative;
         }
 
         .logo {
-            font-size: 2rem;
-            font-weight: bold;
+            font-family: 'Modak', cursive;
+            font-size: 3rem;
+            font-weight: normal;
             color: white;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
@@ -54,6 +83,7 @@
             font-size: 4rem;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             animation: bounce 2s infinite;
+            position: relative;
         }
 
         @keyframes bounce {
@@ -64,6 +94,21 @@
         .hero {
             text-align: center;
             padding: 2rem;
+            position: relative;
+        }
+        
+        .prompt {
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.9);
+            color: var(--accent);
+        }
+
+        h1, h2, h3 {
+            font-family:  'Fredoka One', cursive;
+            font-weight: normal;
+            color: var(--primary);
+            animation: bounce 2s infinite;
+            
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         .cta-buttons {
@@ -82,6 +127,9 @@
             cursor: pointer;
             transition: all 0.3s;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            font-family:  'Fredoka One', cursive;
+            l:'Bubblegum Sans', cursive;
+            position: relative;
         }
 
         button:hover {
@@ -97,16 +145,19 @@
             padding: 1rem;
             max-width: 800px;
             margin: 0 auto;
+            position: relative;
         }
 
         .feature-card {
-            background-color: white;
+            background-color: rgba(255,255,255,0.9);
             border-radius: 15px;
             padding: 1.5rem;
             text-align: center;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             transition: all 0.3s;
             cursor: pointer;
+            border: 3px solid var(--primary);
+            backdrop-filter: blur(2px);
         }
 
         .feature-card:hover {
@@ -130,14 +181,21 @@
             background-color: rgba(255,255,255,0.95);
             z-index: 100;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             text-align: center;
+            overflow-y: auto;
+            padding: 20px 0;
         }
 
         .game-container {
             width: 90%;
             max-width: 500px;
+            background-color: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            margin: 20px 0;
         }
 
         .letter-display {
@@ -145,6 +203,7 @@
             color: var(--primary);
             margin: 1rem 0;
             text-shadow: 4px 4px 0 var(--accent);
+            font-family: 'Modak', cursive;
         }
 
         .object-image {
@@ -160,12 +219,14 @@
             justify-content: center;
             gap: 1rem;
             margin-top: 2rem;
+            flex-wrap: wrap;
         }
 
         .feedback {
             font-size: 2rem;
             height: 3rem;
             margin: 1rem 0;
+            font-family: 'Bubblegum Sans', cursive;
         }
 
         /* Responsive */
@@ -174,24 +235,49 @@
                 grid-template-columns: 1fr;
             }
             .letter-display {
-                font-size: 8rem;
+                font-size: 6rem;
+            }
+            .logo {
+                font-size: 2.5rem;
+            }
+            .object-image {
+                width: 150px;
+                height: 150px;
+            }
+            .polka-dots {
+                background-size: 100px 100px;
             }
         }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            margin-top: auto;
+            background-color: var(--primary);
+            color: white;
+            position: relative;
+        }
     </style>
+      <audio id="background-music" autoplay loop>
+    <source src="https://opengameart.org/sites/default/files/gone_fishin_by_memoraphile_CC0_0.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 </head>
 <body>
+    <div class="polka-dots"></div>
+    
     <header>
         <div class="logo">Fun & Feelings</div>
     </header>
 
     <div class="hero">
         <div class="mascot">🦊</div>
-        <h1>Let's Learn English with Joy!</h1>
+        <h1 class="prompt">Let's Learn English with Joy!</h1>
         <p>An interactive platform for kids ages 2-6</p>
         
         <div class="cta-buttons">
             <button id="startLearning">Start Learning</button>
-            <button id="parentsButton">For Parents</button>
+            <!--button id="parentsButton">For Parents</button-->
         </div>
     </div>
 
@@ -229,13 +315,34 @@
 
     <script>
         // ABC Game Data
-        const abcGameData = [
-            { letter: "A", object: "Apple", sound: "A is for Apple", emoji: "🍎" },
-            { letter: "B", object: "Ball", sound: "B is for Ball", emoji: "⚽" },
-            { letter: "C", object: "Cat", sound: "C is for Cat", emoji: "🐱" },
-            { letter: "D", object: "Dog", sound: "D is for Dog", emoji: "🐶" },
-            { letter: "E", object: "Elephant", sound: "E is for Elephant", emoji: "🐘" }
-        ];
+       const abcGameData = [
+  { letter: "A", object: "Apple", sound: "A is for Apple", emoji: "🍎", audio: "https://gfxsounds.com/wp-content/uploads/2021/06/a.mp3" },
+  { letter: "B", object: "Ball", sound: "B is for Ball", emoji: "⚽", audio: "https://gfxsounds.com/wp-content/uploads/2021/06/b.mp3" },
+  { letter: "C", object: "Cat", sound: "C is for Cat", emoji: "🐱", audio: "https://gfxsounds.com/wp-content/uploads/2021/06/c.mp3" },
+  { letter: "D", object: "Dog", sound: "D is for Dog", emoji: "🐶", audio: "https://gfxsounds.com/wp-content/uploads/2021/06/d.mp3" },
+  { letter: "E", object: "Elephant", sound: "E is for Elephant", emoji: "🐘", audio: "https://gfxsounds.com/wp-content/uploads/2021/06/e.mp3" },
+  { letter: "F", object: "Fish", sound: "F is for Fish", emoji: "🐟", audio: "https://gfxsounds.com/wp-content/uploads/2021/06/f.mp3" },
+  { letter: "G", object: "Guitar", sound: "G is for Guitar", emoji: "🎸", audio: "https://gfxsounds.com/wp-content/uploads/2021/06/g.mp3" },
+  { letter: "H", object: "Hat", sound: "H is for Hat", emoji: "🎩", audio: "https://gfxsounds.com/wp-content/uploads/2021/06/h.mp3" },
+  { letter: "I", object: "Ice Cream", sound: "I is for Ice Cream", emoji: "🍦", audio: "https://gfxsounds.com/wp-content/uploads/2021/06/i.mp3" },
+  { letter: "J", object: "Juice", sound: "J is for Juice", emoji: "🧃", audio: "https://gfxsounds.com/wp-content/uploads/2021/06/j.mp3" },
+  { letter: "K", object: "Kite", sound: "K is for Kite", emoji: "🪁", audio: "https://gfxsounds.com/wp-content/uploads/2021/06/k.mp3" },
+  { letter: "L", object: "Lion", sound: "L is for Lion", emoji: "🦁", audio: "https://gfxsounds.com/wp-content/uploads/2021/06/l.mp3" },
+  { letter: "M", object: "Monkey", sound: "M is for Monkey", emoji: "🐒", audio: "https://gfxsounds.com/wp-content/uploads/2021/06/m.mp3" },
+  { letter: "N", object: "Nest", sound: "N is for Nest", emoji: "🪺", audio: "https://gfxsounds.com/wp-content/uploads/2021/06/n.mp3" },
+  { letter: "O", object: "Orange", sound: "O is for Orange", emoji: "🍊", audio: "https://gfxsounds.com/wp-content/uploads/2021/06/o.mp3" },
+  { letter: "P", object: "Pencil", sound: "P is for Pencil", emoji: "✏️", audio: "https://gfxsounds.com/wp-content/uploads/2021/06/p.mp3" },
+  { letter: "Q", object: "Queen", sound: "Q is for Queen", emoji: "👑", audio: "https://gfxsounds.com/wp-content/uploads/2021/06/q.mp3" },
+  { letter: "R", object: "Rainbow", sound: "R is for Rainbow", emoji: "🌈", audio: "https://gfxsounds.com/wp-content/uploads/2021/06/r.mp3" },
+  { letter: "S", object: "Sun", sound: "S is for Sun", emoji: "☀️", audio: "https://gfxsounds.com/wp-content/uploads/2021/06/s.mp3" },
+  { letter: "T", object: "Tiger", sound: "T is for Tiger", emoji: "🐯", audio: "https://gfxsounds.com/wp-content/uploads/2021/06/t.mp3" },
+  { letter: "U", object: "Umbrella", sound: "U is for Umbrella", emoji: "☂️", audio: "https://gfxsounds.com/wp-content/uploads/2021/06/u.mp3" },
+  { letter: "V", object: "Violin", sound: "V is for Violin", emoji: "🎻", audio: "https://gfxsounds.com/wp-content/uploads/2021/06/v.mp3" },
+  { letter: "W", object: "Whale", sound: "W is for Whale", emoji: "🐳", audio: "https://gfxsounds.com/wp-content/uploads/2021/06/w.mp3" },
+  { letter: "X", object: "Xylophone", sound: "X is for Xylophone", emoji: "🎶", audio: "https://gfxsounds.com/wp-content/uploads/2021/06/x.mp3" },
+  { letter: "Y", object: "Yogurt", sound: "Y is for Yogurt", emoji: "🥛", audio: "https://gfxsounds.com/wp-content/uploads/2021/06/y.mp3" },
+  { letter: "Z", object: "Zebra", sound: "Z is for Zebra", emoji: "🦓", audio: "https://gfxsounds.com/wp-content/uploads/2021/06/z.mp3" }
+];
 
         let currentLetterIndex = 0;
 
@@ -258,49 +365,59 @@
             // Using emoji as image placeholder
             document.getElementById('letterImage').src = `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50%' y='50%' font-size='80' text-anchor='middle' dominant-baseline='middle'>${currentLetter.emoji}</text></svg>`;
             document.getElementById('gameFeedback').textContent = `${currentLetter.letter} is for ${currentLetter.object}`;
-        }// Function to find a feminine voice
-function getFeminineVoice() {
-    const voices = speechSynthesis.getVoices();
-    // Filter for a voice that is commonly feminine
-    return voices.find(voice => voice.lang.startsWith("en") && voice.name.includes("Female")) || voices[0];
-}
- // Preload the audio when the page loads
-const giggleAudio = new Audio();
-giggleAudio.preload = 'auto';
-giggleAudio.src = "https://www.myinstants.com/media/sounds/baby-giggle.mp3";
+        }
 function playLetterSound() {
-    // Play the giggle sound first
-    const audio = new Audio("https://www.myinstants.com/media/sounds/baby-giggle.mp3");
+    const currentLetter = abcGameData[currentLetterIndex];
+    const audio = new Audio(currentLetter.audio);
+    audio.volume = 0.3; // Set volume to 30%
+
     audio.play()
         .then(() => {
-            // Delay speech synthesis to allow giggle to finish
             setTimeout(() => {
-                const currentLetter = abcGameData[currentLetterIndex];
                 const utterance = new SpeechSynthesisUtterance(currentLetter.sound);
-
-                // Voice settings
                 utterance.rate = 0.9;
                 utterance.pitch = 1.4;
+                utterance.volume = 0.8; // Set volume to 80%
 
-                // Try to find a better voice
                 const voices = window.speechSynthesis.getVoices();
-                const childlikeVoice = voices.find(v => 
-                    v.name.includes("Female") || 
+                const childlikeVoice = voices.find(v =>
+                    v.name.includes("Female") ||
                     v.name.includes("Child")
                 );
                 if (childlikeVoice) utterance.voice = childlikeVoice;
 
-                // Speak and show feedback
                 speechSynthesis.speak(utterance);
-                document.getElementById("gameFeedback").textContent = 
+                document.getElementById("gameFeedback").textContent =
                     `Yay! ${currentLetter.letter} is for ${currentLetter.object}`;
-            }, 1000); // Delay for 1 second (adjust if needed)
+            }, 20); // Delay to allow the audio to finish
         })
-        .catch(e => console.log("Error playing sound:", e));
+        .catch((e) => {
+            console.log("Error playing sound:", e);
+                const utterance = new SpeechSynthesisUtterance(currentLetter.sound);
+                utterance.rate = 0.9;
+                utterance.pitch = 1.4;
+                utterance.volume = 0.8; // Set volume to 80%
+
+                const voices = window.speechSynthesis.getVoices();
+                const childlikeVoice = voices.find(v =>
+                    v.name.includes("Female") ||
+                    v.name.includes("Child")
+                );
+                if (childlikeVoice) utterance.voice = childlikeVoice;
+
+                speechSynthesis.speak(utterance);
+                document.getElementById("gameFeedback").textContent =
+                    `Yay! ${currentLetter.letter} is for ${currentLetter.object}`;
+        })
 }
 
-
-        function nextLetter() {
+        function nextLetter() { 
+            if (Math.random()>.67) {
+                const audio = new Audio("https://www.myinstants.com/media/sounds/kids-cheering-sound-effect.mp3");
+                audio.volume = 0.3; // Reduced volume to 30%
+            
+                audio.play()
+            }
             currentLetterIndex = (currentLetterIndex + 1) % abcGameData.length;
             updateLetterDisplay();
             
@@ -330,6 +447,11 @@ function playLetterSound() {
         mascot.addEventListener('mouseout', function() {
             this.style.animation = 'bounce 2s infinite';
         });
+
+        // Load voices when the page loads
+        window.speechSynthesis.onvoiceschanged = function() {
+            // Voices are now loaded
+        };
     </script>
 </body>
 </html>
